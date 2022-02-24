@@ -1,0 +1,35 @@
+# IntelliJ
+#--------------------------------------------------
+
+.idea/
+
+/out/
+
+*.iml
+
+# Gradle
+#--------------------------------------------------
+
+.gradle/
+
+/build/
+
+gradle-app.settings
+
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+.gradletasknamecache
+
+# Java
+#--------------------------------------------------
+
+*.class
+
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar

@@ -1,0 +1,22 @@
+<!-- TODO: url. -->
+<idea-plugin require-restart="false">
+  <id>com.oliveryasuna.clion.qemu</id>
+  <name>QEMU Integration</name>
+  <version>1.0.0</version>
+  <vendor email="oliveryasuna.main@gmail.com" url="https://oliveryasuna.github.io/">Oliver Yasuna</vendor>
+
+  <description/> <!-- TODO. -->
+
+  <change-notes/> <!-- TODO. -->
+
+  <idea-version since-build="213.6461"/>
+
+  <depends>com.intellij.modules.platform</depends>
+  <depends>com.intellij.modules.clion</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <configurationType implementation="com.oliveryasuna.idea.qemu.run.config.QemuConfigurationType"/>
+  </extensions>
+
+  <actions/>
+</idea-plugin>

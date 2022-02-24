@@ -1,0 +1,46 @@
+plugins {
+  id 'java'
+  id 'org.jetbrains.intellij' version '1.4.0'
+}
+
+group 'com.oliveryasuna.idea'
+version '1.0.0'
+
+sourceCompatibility = 11
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+}
+
+/*dependencies {w
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}*/
+
+dependencies {
+  implementation 'com.oliveryasuna:commons-language:5.2.0'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+  version = 'CL-2021.3.2'
+
+  plugins = [
+      'com.intellij.clion'
+  ]
+}
+
+buildSearchableOptions {
+  enabled = false
+}
+
+/*patchPluginXml {
+  changeNotes = """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+}*/
+
+/*test {
+    useJUnitPlatform()
+}*/
