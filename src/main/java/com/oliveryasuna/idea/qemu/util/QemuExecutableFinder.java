@@ -37,6 +37,7 @@ public final class QemuExecutableFinder {
       .map(path -> path.listFiles(QEMU_EXECUTABLE_FILENAME_FILTER))
       .filter(Objects::nonNull)
       .flatMap(Arrays::stream)
+      .filter(file -> ExecutableUtils.canExecute(file.getAbsolutePath()))
       .collect(Collectors.toUnmodifiableList());
 
   // Static utility methods
