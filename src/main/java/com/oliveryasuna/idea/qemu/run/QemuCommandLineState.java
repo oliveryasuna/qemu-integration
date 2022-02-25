@@ -139,13 +139,26 @@ public final class QemuCommandLineState extends CommandLineState {
     final GeneralCommandLine commandLine = new GeneralCommandLine(runConfig.getQemuExecutable());
 
     commandLine.addParameters("-cdrom", diskImage.getAbsolutePath());
+
+    if(runConfig.isEnableGdb()) {
+      if(runConfig.getGdbTcpPort() == 1234) {
+        commandLine.addParameter("-s");
+      } else {
+        commandLine.addParameters("-gdb", "tcp::" + runConfig.getGdbTcpPort());
+      }
+
+      if(runConfig.isQemuWaitForGdb()) {
+        commandLine.addParameter("-S");
+      }
+    }
+
     commandLine.addParameters("-pidfile", ACTIVE_QEMU_PID_FILE.getAbsolutePath());
 
     return commandLine;
   }
 
   private ProcessHandler runCMakeBuild() throws ExecutionException {
-    final CMakeTarget target = runConfig.getCMakeTarget();
+    final CMakeTarget target = runConfig.getCmakeTarget();
 
     if(target == null) {
       throw new ExecutionException("No selected CMake target.");

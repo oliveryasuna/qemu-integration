@@ -3,11 +3,10 @@ package com.oliveryasuna.idea.qemu.run.ui;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
-import com.intellij.openapi.ui.ComponentValidator;
-import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.openapi.ui.ValidationInfo;
+import com.intellij.openapi.ui.*;
+import com.intellij.ui.JBIntSpinner;
 import com.intellij.ui.ListCellRendererWithRightAlignedComponent;
+import com.intellij.ui.components.JBCheckBox;
 import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.jetbrains.cidr.cpp.execution.CMakeBuildConfigurationHelper;
 import com.oliveryasuna.idea.qemu.run.config.QemuRunConfiguration;
@@ -44,17 +43,26 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
   // UI components
   //--------------------------------------------------
 
+  // TODO: JBPanel.
   private JPanel rootPanel;
 
   private ComboBox<String> qemuExecutableField;
 
+  // TODO: JBRadioButton.
   private JRadioButton cmakeTargetRadio;
+
+  // TODO: JBRadioButton.
+  private JRadioButton cdromFileRadio;
 
   private ComboBox<CMakeTarget> cmakeTargetField;
 
-  private JRadioButton cdromFileRadio;
-
   private TextFieldWithBrowseButton cdromFileField;
+
+  private JBCheckBox enableGdbCheckbox;
+
+  private LabeledComponent<JBIntSpinner> gdbTcpPortField;
+
+  private JCheckBox qemuWaitForGdbCheckbox;
 
   // SettingsEditor methods
   //--------------------------------------------------
@@ -72,8 +80,18 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
         break;
     }
 
-    cmakeTargetField.setSelectedItem(runConfig.getCMakeTarget());
+    cmakeTargetField.setSelectedItem(runConfig.getCmakeTarget());
     cdromFileField.setText(runConfig.getCdromFile());
+
+    if(runConfig.isEnableGdb()) {
+      enableGdbCheckbox.doClick();
+    }
+
+    gdbTcpPortField.getComponent().setValue(runConfig.getGdbTcpPort());
+
+    if(runConfig.isQemuWaitForGdb()) {
+      qemuWaitForGdbCheckbox.doClick();
+    }
   }
 
   @Override
@@ -86,8 +104,14 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
       runConfig.setDiskImageSource(QemuRunConfigurationOptions.DiskImageSource.CDROM_FILE);
     }
 
-    runConfig.setCMakeTarget((CMakeTarget)cmakeTargetField.getSelectedItem());
+    runConfig.setCmakeTarget((CMakeTarget)cmakeTargetField.getSelectedItem());
     runConfig.setCdromFile(cdromFileField.getText());
+
+    runConfig.setEnableGdb(enableGdbCheckbox.isSelected());
+
+    runConfig.setGdbTcpPort((int)gdbTcpPortField.getComponent().getValue());
+    
+    runConfig.setQemuWaitForGdb(qemuWaitForGdbCheckbox.isSelected());
   }
 
   @Override
@@ -102,9 +126,19 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
     cmakeTargetField.setModel(new ListComboBoxModel<>(new CMakeBuildConfigurationHelper(project).getTargets()));
     cmakeTargetField.setRenderer(new CMakeTargetCellRenderer());
 
+    enableGdbCheckbox.addActionListener(this::enableGdbCheckboxChanged);
+
+    final JBIntSpinner gdbTcpPortFieldComponent = new JBIntSpinner(QemuRunConfigurationOptions.DEFAULT_GDB_TCP_PORT, 1, 65535);
+
+    ((JSpinner.DefaultEditor)gdbTcpPortFieldComponent.getEditor()).getTextField().setHorizontalAlignment(JTextField.LEFT);
+
+    gdbTcpPortField.setComponent(gdbTcpPortFieldComponent);
+
     addQemuExecutableFieldValidator();
     addCMakeTargetFieldValidator();
     addCdromFileFieldValidator();
+
+    qemuExecutableField.addActionListener(event -> fireEditorStateChanged());
 
     return rootPanel;
   }
@@ -177,6 +211,13 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
       cmakeTargetField.setEnabled(false);
       cdromFileField.setEnabled(true);
     }
+  }
+
+  private void enableGdbCheckboxChanged(final ActionEvent event) {
+    final boolean gdbFieldsEnabled = enableGdbCheckbox.isSelected();
+
+    gdbTcpPortField.setEnabled(gdbFieldsEnabled);
+    qemuWaitForGdbCheckbox.setEnabled(gdbFieldsEnabled);
   }
 
   // CMakeTargetCellRenderer class

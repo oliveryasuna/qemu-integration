@@ -27,6 +27,11 @@ import java.util.Objects;
 
 public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
 
+  // Static fields
+  //--------------------------------------------------
+
+  public static final int DEFAULT_GDB_TCP_PORT = 2345;
+
   // Constructors
   //--------------------------------------------------
 
@@ -49,6 +54,15 @@ public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
   private final StoredProperty<String> cdromFile = string(null)
       .provideDelegate(this, "cdromFile");
 
+  private final StoredProperty<Boolean> enableGdb = property(true)
+      .provideDelegate(this, "enableGdb");
+
+  private final StoredProperty<Integer> gdbTcpPort = property(DEFAULT_GDB_TCP_PORT)
+      .provideDelegate(this, "gdbTcpPort");
+
+  private final StoredProperty<Boolean> qemuWaitForGdb = property(true)
+      .provideDelegate(this, "qemuWaitForGdb");
+
   // Option getters/setters
   //--------------------------------------------------
 
@@ -70,11 +84,11 @@ public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
     this.diskImageSource.setValue(this, diskImageSource);
   }
 
-  final CMakeTarget getCMakeTarget() {
+  final CMakeTarget getCmakeTarget() {
     return cmakeTarget.getValue(this);
   }
 
-  final void setCMakeTarget(final CMakeTarget cmakeTarget) {
+  final void setCmakeTarget(final CMakeTarget cmakeTarget) {
     this.cmakeTarget.setValue(this, cmakeTarget);
   }
 
@@ -84,6 +98,30 @@ public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
 
   final void setCdromFile(final String cdromFile) {
     this.cdromFile.setValue(this, cdromFile);
+  }
+
+  final boolean isEnableGdb() {
+    return enableGdb.getValue(this);
+  }
+
+  final void setEnableGdb(final boolean enableGdb) {
+    this.enableGdb.setValue(this, enableGdb);
+  }
+
+  final int getGdbTcpPort() {
+    return gdbTcpPort.getValue(this);
+  }
+
+  final void setGdbTcpPort(final int gdbTcpPort) {
+    this.gdbTcpPort.setValue(this, gdbTcpPort);
+  }
+
+  final boolean isQemuWaitForGdb() {
+    return qemuWaitForGdb.getValue(this);
+  }
+
+  final void setQemuWaitForGdb(final boolean qemuWaitForGdb) {
+    this.qemuWaitForGdb.setValue(this, qemuWaitForGdb);
   }
 
   // DiskImageSource enum

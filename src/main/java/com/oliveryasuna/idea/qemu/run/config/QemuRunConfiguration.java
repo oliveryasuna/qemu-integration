@@ -60,12 +60,12 @@ public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConf
     getOptions().setDiskImageSource(diskImageSource);
   }
 
-  public final CMakeTarget getCMakeTarget() {
-    return getOptions().getCMakeTarget();
+  public final CMakeTarget getCmakeTarget() {
+    return getOptions().getCmakeTarget();
   }
 
-  public final void setCMakeTarget(final CMakeTarget cmakeTarget) {
-    getOptions().setCMakeTarget(cmakeTarget);
+  public final void setCmakeTarget(final CMakeTarget cmakeTarget) {
+    getOptions().setCmakeTarget(cmakeTarget);
   }
 
   public final String getCdromFile() {
@@ -74,6 +74,30 @@ public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConf
 
   public final void setCdromFile(final String cdromFile) {
     getOptions().setCdromFile(cdromFile);
+  }
+
+  public final boolean isEnableGdb() {
+    return getOptions().isEnableGdb();
+  }
+
+  public final void setEnableGdb(final boolean enableGdb) {
+    getOptions().setEnableGdb(enableGdb);
+  }
+
+  public final int getGdbTcpPort() {
+    return getOptions().getGdbTcpPort();
+  }
+
+  public final void setGdbTcpPort(final int gdbTcpPort) {
+    getOptions().setGdbTcpPort(gdbTcpPort);
+  }
+
+  public final boolean isQemuWaitForGdb() {
+    return getOptions().isQemuWaitForGdb();
+  }
+
+  public final void setQemuWaitForGdb(final boolean qemuWaitForGdb) {
+    getOptions().setQemuWaitForGdb(qemuWaitForGdb);
   }
 
   // RunConfigurationBase methods
