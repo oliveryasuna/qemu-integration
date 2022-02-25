@@ -20,9 +20,13 @@ public final class ExecutableUtils {
     return Arrays.stream(System.getenv("PATH").split(Pattern.quote(File.pathSeparator)))
         .map(Paths::get)
         .anyMatch(path -> {
-          final Path resolvedPath = path.resolve(executable);
+          try {
+            final Path resolvedPath = path.resolve(executable);
 
-          return Files.isExecutable(resolvedPath);
+            return Files.isExecutable(resolvedPath);
+          } catch(final Exception e) {
+            return false;
+          }
         });
   }
 
