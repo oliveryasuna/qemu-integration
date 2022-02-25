@@ -8,12 +8,6 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="458e4" class="javax.swing.JComboBox" binding="qemuExecutableField">
-        <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
       <component id="ddd00" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -21,12 +15,6 @@
         <properties>
           <text value="QEMU executable:"/>
         </properties>
-      </component>
-      <component id="e55b5" class="javax.swing.JComboBox" binding="cmakeTargetField">
-        <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
       </component>
       <component id="6e19f" class="javax.swing.JRadioButton" binding="cmakeTargetRadio">
         <constraints>
@@ -53,6 +41,20 @@
       <component id="8da3c" class="javax.swing.JSeparator">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="f5a3e" class="com.intellij.openapi.ui.ComboBox" binding="qemuExecutableField">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="2" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <editable value="true"/>
+        </properties>
+      </component>
+      <component id="38bb6" class="com.intellij.openapi.ui.ComboBox" binding="cmakeTargetField">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
