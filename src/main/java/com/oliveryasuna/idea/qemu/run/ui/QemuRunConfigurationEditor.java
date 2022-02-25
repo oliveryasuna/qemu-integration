@@ -11,13 +11,12 @@ import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.jetbrains.cidr.cpp.execution.CMakeBuildConfigurationHelper;
 import com.oliveryasuna.idea.qemu.run.config.QemuRunConfiguration;
 import com.oliveryasuna.idea.qemu.run.config.QemuRunConfigurationOptions;
-import com.oliveryasuna.idea.qemu.util.ExecutableUtils;
+import com.oliveryasuna.idea.qemu.util.CommandUtils;
 import com.oliveryasuna.idea.qemu.util.QemuExecutableFinder;
 import org.apache.commons.lang3.StringUtils;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.event.ActionEvent;
 import java.io.File;
 
@@ -37,8 +36,6 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
   //--------------------------------------------------
 
   private final Project project;
-
-  private Border qemuExecutableFieldErrorBorder;
 
   // UI components
   //--------------------------------------------------
@@ -110,13 +107,13 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
     runConfig.setEnableGdb(enableGdbCheckbox.isSelected());
 
     runConfig.setGdbTcpPort((int)gdbTcpPortField.getComponent().getValue());
-    
+
     runConfig.setQemuWaitForGdb(qemuWaitForGdbCheckbox.isSelected());
   }
 
   @Override
   protected final JComponent createEditor() {
-    qemuExecutableField.setModel(new DefaultComboBoxModel<>(QemuExecutableFinder.getQemuExecutables().stream()
+    qemuExecutableField.setModel(new DefaultComboBoxModel<>(QemuExecutableFinder.findQemuExecutables().stream()
         .map(File::getAbsolutePath)
         .toArray(String[]::new)));
 
@@ -152,7 +149,9 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
           final String qemuExecutableCandidate = qemuExecutableField.getItem();
 
           if(StringUtils.isBlank(qemuExecutableCandidate)) return new ValidationInfo("Required field.", qemuExecutableField);
-          if(!ExecutableUtils.canExecute(qemuExecutableCandidate)) return new ValidationInfo("Not found.", qemuExecutableField);
+          if(!(QemuExecutableFinder.findQemuExecutables().contains(new File(qemuExecutableCandidate)) ||
+              !CommandUtils.findExecutables(qemuExecutableCandidate).isEmpty()))
+            return new ValidationInfo("Not found.", qemuExecutableField);
 
           return null;
         })
