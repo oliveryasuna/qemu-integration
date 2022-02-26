@@ -45,6 +45,9 @@ public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
   private final StoredProperty<String> qemuExecutable = string(null)
       .provideDelegate(this, "qemuExecutable");
 
+  private final StoredProperty<String> qemuArguments = string(null)
+      .provideDelegate(this, "qemuArguments");
+
   private final StoredProperty<DiskImageSource> diskImageSource = doEnum(DiskImageSource.CMAKE_TARGET, DiskImageSource.class)
       .provideDelegate(this, "diskImageSource");
 
@@ -53,6 +56,9 @@ public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
 
   private final StoredProperty<String> cdromFile = string(null)
       .provideDelegate(this, "cdromFile");
+
+  private final StoredProperty<String> kernelFile = string(null)
+      .provideDelegate(this, "kernelFile");
 
   private final StoredProperty<Boolean> enableGdb = property(true)
       .provideDelegate(this, "enableGdb");
@@ -72,6 +78,14 @@ public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
 
   final void setQemuExecutable(final String qemuExecutable) {
     this.qemuExecutable.setValue(this, qemuExecutable);
+  }
+
+  final String getQemuArguments() {
+    return qemuArguments.getValue(this);
+  }
+
+  final void setQemuArguments(final String qemuArguments) {
+    this.qemuArguments.setValue(this, qemuArguments);
   }
 
   final DiskImageSource getDiskImageSource() {
@@ -98,6 +112,14 @@ public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
 
   final void setCdromFile(final String cdromFile) {
     this.cdromFile.setValue(this, cdromFile);
+  }
+
+  final String getKernelFile() {
+    return kernelFile.getValue(this);
+  }
+
+  final void setKernelFile(final String kernelFile) {
+    this.kernelFile.setValue(this, kernelFile);
   }
 
   final boolean isEnableGdb() {

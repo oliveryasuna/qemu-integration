@@ -7,6 +7,7 @@ import com.intellij.openapi.ui.*;
 import com.intellij.ui.JBIntSpinner;
 import com.intellij.ui.ListCellRendererWithRightAlignedComponent;
 import com.intellij.ui.components.JBCheckBox;
+import com.intellij.ui.components.fields.ExpandableTextField;
 import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.jetbrains.cidr.cpp.execution.CMakeBuildConfigurationHelper;
 import com.oliveryasuna.idea.qemu.run.config.QemuRunConfiguration;
@@ -45,6 +46,8 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
 
   private ComboBox<String> qemuExecutableField;
 
+  private ExpandableTextField qemuArgumentsField;
+
   // TODO: JBRadioButton.
   private JRadioButton cmakeTargetRadio;
 
@@ -59,6 +62,7 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
 
   private LabeledComponent<JBIntSpinner> gdbTcpPortField;
 
+  // TODO: JBCheckBox.
   private JCheckBox qemuWaitForGdbCheckbox;
 
   // SettingsEditor methods
@@ -67,6 +71,7 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
   @Override
   protected final void resetEditorFrom(final QemuRunConfiguration runConfig) {
     qemuExecutableField.setSelectedItem(runConfig.getQemuExecutable());
+    qemuArgumentsField.setText(runConfig.getQemuArguments());
 
     switch(runConfig.getDiskImageSource()) {
       case CMAKE_TARGET:
@@ -94,6 +99,7 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
   @Override
   protected final void applyEditorTo(final QemuRunConfiguration runConfig) throws ConfigurationException {
     runConfig.setQemuExecutable((String)qemuExecutableField.getSelectedItem());
+    runConfig.setQemuArguments(qemuArgumentsField.getText());
 
     if(cmakeTargetRadio.isSelected()) {
       runConfig.setDiskImageSource(QemuRunConfigurationOptions.DiskImageSource.CMAKE_TARGET);
@@ -134,8 +140,6 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
     addQemuExecutableFieldValidator();
     addCMakeTargetFieldValidator();
     addCdromFileFieldValidator();
-
-    qemuExecutableField.addActionListener(event -> fireEditorStateChanged());
 
     return rootPanel;
   }

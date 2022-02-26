@@ -52,6 +52,14 @@ public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConf
     getOptions().setQemuExecutable(qemuExecutable);
   }
 
+  public final String getQemuArguments() {
+    return getOptions().getQemuArguments();
+  }
+
+  public final void setQemuArguments(final String qemuArguments) {
+    getOptions().setQemuArguments(qemuArguments);
+  }
+
   public final QemuRunConfigurationOptions.DiskImageSource getDiskImageSource() {
     return getOptions().getDiskImageSource();
   }
@@ -74,6 +82,14 @@ public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConf
 
   public final void setCdromFile(final String cdromFile) {
     getOptions().setCdromFile(cdromFile);
+  }
+
+  public final String getKernelFile() {
+    return getOptions().getKernelFile();
+  }
+
+  public final void setKernelFile(final String kernelFile) {
+    getOptions().setKernelFile(kernelFile);
   }
 
   public final boolean isEnableGdb() {
