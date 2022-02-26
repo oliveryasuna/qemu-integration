@@ -44,7 +44,10 @@ public final class CmakePsiUtils {
 
   public static Pair<CMakeCommand, CMakeArgument> getCmakeTargetArgumentFromLeafPsi(final PsiElement element) {
     Arguments.requireNotNull(element, "element == null");
-    Arguments.requireTrue(element instanceof LeafPsiElement, "!(element instanceof LeafPsiElement)");
+
+    if(!(element instanceof LeafPsiElement)) {
+      return Pair.of(null, null);
+    }
 
     final CMakeArgument cmakeArgument = PsiTreeUtil.getParentOfType(element, CMakeArgument.class);
 
