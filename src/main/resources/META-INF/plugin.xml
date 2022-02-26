@@ -18,6 +18,8 @@
   <extensions defaultExtensionNs="com.intellij">
     <configurationType implementation="com.oliveryasuna.idea.qemu.run.config.QemuConfigType"/>
     <programRunner implementation="com.oliveryasuna.idea.qemu.qemu.QemuProgramRunner"/>
+    <runLineMarkerContributor language="CMake" implementationClass="com.oliveryasuna.idea.qemu.run.gutter.QemuRunLineMarkerMarkerContributor"/>
+    <runConfigurationProducer implementation="com.oliveryasuna.idea.qemu.run.producer.QemuRunConfigProducer"/>
   </extensions>
 
   <actions/>

@@ -21,8 +21,8 @@ package com.oliveryasuna.idea.qemu.run.config;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.ConfigurationFactory;
+import com.intellij.execution.configurations.LocatableConfigurationBase;
 import com.intellij.execution.configurations.RunConfiguration;
-import com.intellij.execution.configurations.RunConfigurationBase;
 import com.intellij.execution.configurations.RunProfileState;
 import com.intellij.execution.executors.DefaultRunExecutor;
 import com.intellij.execution.runners.ExecutionEnvironment;
@@ -32,7 +32,12 @@ import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.oliveryasuna.idea.qemu.qemu.QemuCommandLineState;
 import com.oliveryasuna.idea.qemu.run.config.ui.QemuRunConfigEditor;
 
-public final class QemuRunConfig extends RunConfigurationBase<QemuRunConfigOptions> {
+public final class QemuRunConfig extends LocatableConfigurationBase<QemuRunConfigOptions> {
+
+  // Static fields
+  //--------------------------------------------------
+
+  private static final String SUGGESTED_NAME_FORMAT = "%s w/ QEMU";
 
   // Constructors
   //--------------------------------------------------
@@ -116,13 +121,22 @@ public final class QemuRunConfig extends RunConfigurationBase<QemuRunConfigOptio
     getOptions().setQemuWaitForGdb(qemuWaitForGdb);
   }
 
-  // RunConfigurationBase methods
+  // LocatableConfigurationBase methods
   //--------------------------------------------------
 
   @Override
   protected final QemuRunConfigOptions getOptions() {
     return (QemuRunConfigOptions)super.getOptions();
   }
+
+  // LocatableConfiguration methods
+  //--------------------------------------------------
+
+  @Override
+  public final String suggestedName() {
+    return (getCmakeTarget() != null ? String.format(SUGGESTED_NAME_FORMAT, getCmakeTarget().getName()) : "Run w/ QEMU");
+  }
+
 
   // RunConfiguration methods
   //--------------------------------------------------

@@ -16,29 +16,44 @@
  * TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.oliveryasuna.idea.qemu.run.config;
+package com.oliveryasuna.idea.qemu.run.gutter;
 
-import com.intellij.execution.configurations.ConfigurationTypeBase;
-import com.intellij.execution.configurations.ConfigurationTypeUtil;
+import com.intellij.execution.lineMarker.ExecutorAction;
+import com.intellij.execution.lineMarker.RunLineMarkerContributor;
 import com.intellij.icons.AllIcons;
+import com.intellij.psi.PsiElement;
+import com.jetbrains.cmake.psi.CMakeArgument;
+import com.jetbrains.cmake.psi.CMakeCommand;
+import com.oliveryasuna.idea.qemu.util.CmakePsiUtils;
+import org.apache.commons.lang3.tuple.Pair;
 
-// TODO: @PhonySingleton.
-public final class QemuConfigType extends ConfigurationTypeBase {
-
-  // Singleton
-  //--------------------------------------------------
-
-  public static QemuConfigType getInstance() {
-    return ConfigurationTypeUtil.findConfigurationType(QemuConfigType.class);
-  }
+final class QemuRunLineMarkerMarkerContributor extends RunLineMarkerContributor {
 
   // Constructors
   //--------------------------------------------------
 
-  private QemuConfigType() {
-    super("qemu", "QEMU", "Run with QEMU", AllIcons.RunConfigurations.Application);
+  private QemuRunLineMarkerMarkerContributor() {
+    super();
+  }
 
-    addFactory(new QemuConfigFactory(this));
+  // RunLineMarkerContributor methods
+  //--------------------------------------------------
+
+  @Override
+  public final Info getInfo(final PsiElement element) {
+    if(element == null) {
+      return null;
+    }
+
+    // IntelliJ wants the marker applied to leaf elements.
+    final Pair<CMakeCommand, CMakeArgument> cmakeCommandArgumentPair = CmakePsiUtils.getCmakeTargetArgumentFromLeafPsi(element);
+
+    if(cmakeCommandArgumentPair.getLeft() == null || cmakeCommandArgumentPair.getRight() == null) {
+      return null;
+    }
+
+    // TODO: QEMU icon.
+    return new Info(AllIcons.RunConfigurations.TestState.Run, ExecutorAction.getActions(Integer.MAX_VALUE), null);
   }
 
 }

@@ -18,14 +18,14 @@
 
 package com.oliveryasuna.idea.qemu.run.config;
 
-import com.intellij.execution.configurations.RunConfigurationOptions;
+import com.intellij.execution.configurations.LocatableRunConfigurationOptions;
 import com.intellij.openapi.components.StoredProperty;
 import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.oliveryasuna.commons.language.condition.Arguments;
 
 import java.util.Objects;
 
-public final class QemuRunConfigOptions extends RunConfigurationOptions {
+public final class QemuRunConfigOptions extends LocatableRunConfigurationOptions {
 
   // Static fields
   //--------------------------------------------------
