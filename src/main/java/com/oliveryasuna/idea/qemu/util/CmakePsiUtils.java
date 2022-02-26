@@ -61,6 +61,10 @@ public final class CmakePsiUtils {
       return Pair.of(null, null);
     }
 
+    if(cmakeCommand.getFirstArgument() != cmakeArgument) {
+      return Pair.of(null, null);
+    }
+
     final CMakeCommandName cmakeCommandName = cmakeCommand.getCMakeCommandName();
 
     if(cmakeCommandName == null) {
