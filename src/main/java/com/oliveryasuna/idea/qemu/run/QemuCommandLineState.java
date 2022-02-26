@@ -154,6 +154,8 @@ public final class QemuCommandLineState extends CommandLineState {
 
     commandLine.addParameters("-pidfile", ACTIVE_QEMU_PID_FILE.getAbsolutePath());
 
+    commandLine.addParameter(runConfig.getQemuArguments());
+
     return commandLine;
   }
 
