@@ -43,7 +43,7 @@ final class QemuConfigFactory extends ConfigurationFactory {
 
   @Override
   public final RunConfiguration createTemplateConfiguration(final Project project) {
-    return new QemuRunConfiguration(project, this, getType().getDisplayName());
+    return new QemuRunConfig(project, this, getType().getDisplayName());
   }
 
   @Override

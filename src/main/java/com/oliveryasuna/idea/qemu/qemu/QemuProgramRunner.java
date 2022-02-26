@@ -27,7 +27,7 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.execution.runners.GenericProgramRunner;
 import com.intellij.execution.runners.RunContentBuilder;
 import com.intellij.execution.ui.RunContentDescriptor;
-import com.oliveryasuna.idea.qemu.run.config.QemuRunConfiguration;
+import com.oliveryasuna.idea.qemu.run.config.QemuRunConfig;
 
 final class QemuProgramRunner extends GenericProgramRunner {
 
@@ -53,7 +53,7 @@ final class QemuProgramRunner extends GenericProgramRunner {
 
   @Override
   public final boolean canRun(final String executorId, final RunProfile profile) {
-    return (profile instanceof QemuRunConfiguration && executorId.equals(RUN_EXECUTOR));
+    return (profile instanceof QemuRunConfig && executorId.equals(RUN_EXECUTOR));
   }
 
   @Override

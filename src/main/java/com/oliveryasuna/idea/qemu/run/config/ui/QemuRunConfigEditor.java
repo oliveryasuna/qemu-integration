@@ -28,8 +28,8 @@ import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.fields.ExpandableTextField;
 import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.jetbrains.cidr.cpp.execution.CMakeBuildConfigurationHelper;
+import com.oliveryasuna.idea.qemu.run.config.QemuRunConfig;
 import com.oliveryasuna.idea.qemu.run.config.QemuRunConfigOptions;
-import com.oliveryasuna.idea.qemu.run.config.QemuRunConfiguration;
 import com.oliveryasuna.idea.qemu.util.CommandUtils;
 import com.oliveryasuna.idea.qemu.util.QemuExecutableFinder;
 import org.apache.commons.lang3.StringUtils;
@@ -40,7 +40,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 
 // I hate Swing...
-public class QemuRunConfigEditor extends SettingsEditor<QemuRunConfiguration> {
+public class QemuRunConfigEditor extends SettingsEditor<QemuRunConfig> {
 
   // Constructors
   //--------------------------------------------------
@@ -87,7 +87,7 @@ public class QemuRunConfigEditor extends SettingsEditor<QemuRunConfiguration> {
   //--------------------------------------------------
 
   @Override
-  protected final void resetEditorFrom(final QemuRunConfiguration runConfig) {
+  protected final void resetEditorFrom(final QemuRunConfig runConfig) {
     qemuExecutableField.setSelectedItem(runConfig.getQemuExecutable());
     qemuArgumentsField.setText(runConfig.getQemuArguments());
 
@@ -115,7 +115,7 @@ public class QemuRunConfigEditor extends SettingsEditor<QemuRunConfiguration> {
   }
 
   @Override
-  protected final void applyEditorTo(final QemuRunConfiguration runConfig) throws ConfigurationException {
+  protected final void applyEditorTo(final QemuRunConfig runConfig) throws ConfigurationException {
     runConfig.setQemuExecutable((String)qemuExecutableField.getSelectedItem());
     runConfig.setQemuArguments(qemuArgumentsField.getText());
 

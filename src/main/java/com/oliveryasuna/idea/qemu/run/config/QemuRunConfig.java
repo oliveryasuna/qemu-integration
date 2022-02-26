@@ -32,12 +32,12 @@ import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.oliveryasuna.idea.qemu.qemu.QemuCommandLineState;
 import com.oliveryasuna.idea.qemu.run.config.ui.QemuRunConfigEditor;
 
-public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConfigOptions> {
+public final class QemuRunConfig extends RunConfigurationBase<QemuRunConfigOptions> {
 
   // Constructors
   //--------------------------------------------------
 
-  QemuRunConfiguration(final Project project, final ConfigurationFactory factory, final String name) {
+  QemuRunConfig(final Project project, final ConfigurationFactory factory, final String name) {
     super(project, factory, name);
   }
 

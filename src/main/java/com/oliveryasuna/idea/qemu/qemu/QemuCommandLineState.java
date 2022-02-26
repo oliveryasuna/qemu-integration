@@ -30,7 +30,7 @@ import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.jetbrains.cidr.cpp.execution.CMakeBuildConfigurationHelper;
 import com.oliveryasuna.commons.language.condition.Arguments;
 import com.oliveryasuna.idea.qemu.cmake.CMakeBuildProcessHandler;
-import com.oliveryasuna.idea.qemu.run.config.QemuRunConfiguration;
+import com.oliveryasuna.idea.qemu.run.config.QemuRunConfig;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -89,7 +89,7 @@ public final class QemuCommandLineState extends CommandLineState {
   // Constructors
   //--------------------------------------------------
 
-  public QemuCommandLineState(final ExecutionEnvironment environment, final QemuRunConfiguration runConfig) {
+  public QemuCommandLineState(final ExecutionEnvironment environment, final QemuRunConfig runConfig) {
     super(environment);
 
     Arguments.requireNotNull(runConfig, "runConfig");
@@ -100,7 +100,7 @@ public final class QemuCommandLineState extends CommandLineState {
   // Fields
   //--------------------------------------------------
 
-  private final QemuRunConfiguration runConfig;
+  private final QemuRunConfig runConfig;
 
   private ProcessHandler mainProcess;
 
