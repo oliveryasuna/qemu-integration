@@ -16,7 +16,7 @@
   <depends>com.intellij.modules.clion</depends>
 
   <extensions defaultExtensionNs="com.intellij">
-    <configurationType implementation="com.oliveryasuna.idea.qemu.run.config.QemuConfigurationType"/>
+    <configurationType implementation="com.oliveryasuna.idea.qemu.run.config.QemuConfigType"/>
     <programRunner implementation="com.oliveryasuna.idea.qemu.qemu.QemuProgramRunner"/>
   </extensions>
 

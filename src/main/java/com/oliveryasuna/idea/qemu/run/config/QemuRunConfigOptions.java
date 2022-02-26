@@ -25,7 +25,7 @@ import com.oliveryasuna.commons.language.condition.Arguments;
 
 import java.util.Objects;
 
-public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
+public final class QemuRunConfigOptions extends RunConfigurationOptions {
 
   // Static fields
   //--------------------------------------------------
@@ -35,7 +35,7 @@ public final class QemuRunConfigurationOptions extends RunConfigurationOptions {
   // Constructors
   //--------------------------------------------------
 
-  QemuRunConfigurationOptions() {
+  QemuRunConfigOptions() {
     super();
   }
 

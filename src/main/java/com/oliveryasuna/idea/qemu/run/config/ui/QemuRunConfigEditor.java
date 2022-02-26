@@ -28,8 +28,8 @@ import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.fields.ExpandableTextField;
 import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.jetbrains.cidr.cpp.execution.CMakeBuildConfigurationHelper;
+import com.oliveryasuna.idea.qemu.run.config.QemuRunConfigOptions;
 import com.oliveryasuna.idea.qemu.run.config.QemuRunConfiguration;
-import com.oliveryasuna.idea.qemu.run.config.QemuRunConfigurationOptions;
 import com.oliveryasuna.idea.qemu.util.CommandUtils;
 import com.oliveryasuna.idea.qemu.util.QemuExecutableFinder;
 import org.apache.commons.lang3.StringUtils;
@@ -40,12 +40,12 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 
 // I hate Swing...
-public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfiguration> {
+public class QemuRunConfigEditor extends SettingsEditor<QemuRunConfiguration> {
 
   // Constructors
   //--------------------------------------------------
 
-  public QemuRunConfigurationEditor(final Project project) {
+  public QemuRunConfigEditor(final Project project) {
     super();
 
     this.project = project;
@@ -120,9 +120,9 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
     runConfig.setQemuArguments(qemuArgumentsField.getText());
 
     if(cmakeTargetRadio.isSelected()) {
-      runConfig.setDiskImageSource(QemuRunConfigurationOptions.DiskImageSource.CMAKE_TARGET);
+      runConfig.setDiskImageSource(QemuRunConfigOptions.DiskImageSource.CMAKE_TARGET);
     } else if(cdromFileRadio.isSelected()) {
-      runConfig.setDiskImageSource(QemuRunConfigurationOptions.DiskImageSource.CDROM_FILE);
+      runConfig.setDiskImageSource(QemuRunConfigOptions.DiskImageSource.CDROM_FILE);
     }
 
     runConfig.setCmakeTarget((CMakeTarget)cmakeTargetField.getSelectedItem());
@@ -149,7 +149,7 @@ public class QemuRunConfigurationEditor extends SettingsEditor<QemuRunConfigurat
 
     enableGdbCheckbox.addActionListener(this::enableGdbCheckboxChanged);
 
-    final JBIntSpinner gdbTcpPortFieldComponent = new JBIntSpinner(QemuRunConfigurationOptions.DEFAULT_GDB_TCP_PORT, 1, 65535);
+    final JBIntSpinner gdbTcpPortFieldComponent = new JBIntSpinner(QemuRunConfigOptions.DEFAULT_GDB_TCP_PORT, 1, 65535);
 
     ((JSpinner.DefaultEditor)gdbTcpPortFieldComponent.getEditor()).getTextField().setHorizontalAlignment(JTextField.LEFT);
 

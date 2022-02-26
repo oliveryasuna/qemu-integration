@@ -18,18 +18,37 @@
 
 package com.oliveryasuna.idea.qemu.run.config;
 
-import com.intellij.execution.configurations.ConfigurationTypeBase;
-import com.intellij.icons.AllIcons;
+import com.intellij.execution.configurations.ConfigurationFactory;
+import com.intellij.execution.configurations.ConfigurationType;
+import com.intellij.execution.configurations.RunConfiguration;
+import com.intellij.openapi.components.BaseState;
+import com.intellij.openapi.project.Project;
 
-public final class QemuConfigurationType extends ConfigurationTypeBase {
+final class QemuConfigFactory extends ConfigurationFactory {
 
   // Constructors
   //--------------------------------------------------
 
-  private QemuConfigurationType() {
-    super("qemu", "QEMU", "Run with QEMU", AllIcons.RunConfigurations.Application);
+  QemuConfigFactory(final ConfigurationType type) {
+    super(type);
+  }
 
-    addFactory(new QemuConfigurationFactory(this));
+  // ConfigurationFactory methods
+  //--------------------------------------------------
+
+  @Override
+  public final String getId() {
+    return getType().getId();
+  }
+
+  @Override
+  public final RunConfiguration createTemplateConfiguration(final Project project) {
+    return new QemuRunConfiguration(project, this, getType().getDisplayName());
+  }
+
+  @Override
+  public final Class<? extends BaseState> getOptionsClass() {
+    return QemuRunConfigOptions.class;
   }
 
 }

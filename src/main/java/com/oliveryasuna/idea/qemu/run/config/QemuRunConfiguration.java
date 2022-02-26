@@ -30,9 +30,9 @@ import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
 import com.oliveryasuna.idea.qemu.qemu.QemuCommandLineState;
-import com.oliveryasuna.idea.qemu.run.config.ui.QemuRunConfigurationEditor;
+import com.oliveryasuna.idea.qemu.run.config.ui.QemuRunConfigEditor;
 
-public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConfigurationOptions> {
+public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConfigOptions> {
 
   // Constructors
   //--------------------------------------------------
@@ -60,11 +60,11 @@ public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConf
     getOptions().setQemuArguments(qemuArguments);
   }
 
-  public final QemuRunConfigurationOptions.DiskImageSource getDiskImageSource() {
+  public final QemuRunConfigOptions.DiskImageSource getDiskImageSource() {
     return getOptions().getDiskImageSource();
   }
 
-  public final void setDiskImageSource(final QemuRunConfigurationOptions.DiskImageSource diskImageSource) {
+  public final void setDiskImageSource(final QemuRunConfigOptions.DiskImageSource diskImageSource) {
     getOptions().setDiskImageSource(diskImageSource);
   }
 
@@ -120,8 +120,8 @@ public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConf
   //--------------------------------------------------
 
   @Override
-  protected final QemuRunConfigurationOptions getOptions() {
-    return (QemuRunConfigurationOptions)super.getOptions();
+  protected final QemuRunConfigOptions getOptions() {
+    return (QemuRunConfigOptions)super.getOptions();
   }
 
   // RunConfiguration methods
@@ -129,7 +129,7 @@ public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConf
 
   @Override
   public final SettingsEditor<? extends RunConfiguration> getConfigurationEditor() {
-    return new QemuRunConfigurationEditor(getProject());
+    return new QemuRunConfigEditor(getProject());
   }
 
   // RunProfile methods
