@@ -29,8 +29,8 @@ import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
 import com.jetbrains.cidr.cpp.cmake.model.CMakeTarget;
-import com.oliveryasuna.idea.qemu.run.QemuCommandLineState;
-import com.oliveryasuna.idea.qemu.run.ui.QemuRunConfigurationEditor;
+import com.oliveryasuna.idea.qemu.qemu.QemuCommandLineState;
+import com.oliveryasuna.idea.qemu.run.config.ui.QemuRunConfigurationEditor;
 
 public final class QemuRunConfiguration extends RunConfigurationBase<QemuRunConfigurationOptions> {
 
